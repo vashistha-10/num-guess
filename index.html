@@ -1,0 +1,92 @@
+<html>
+   <style>
+    .sub-doc{
+      height: 40px;
+      width: 40px;
+      color: white;
+      font-size: 20px;
+      font-family: arial;
+      margin:10px 10px 10px 10px;
+      background:blue;
+      text-decoration: none;
+      transition-duration: 0.5s;
+      float: left;
+    }
+    .sub-doc:hover{
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    #results{
+      font-size: 35px;
+      color: red;
+      font-family: arial;
+    }
+    div{
+      float: left;
+    }
+   </style>
+   <body onload="addDiv()">
+  <center>
+   <div id="doc">
+   </div>
+   <br>
+   <div id="results"></div>
+ </center>
+   </body>
+   <script>
+    var main;
+      function addDiv(){
+        var doc = document.getElementById("doc");
+        main = Math.floor(Math.random() * 100) + 1;
+        console.log(main);
+        var cnt = 1;
+         for(var i=0;i<10;i++){
+            doc.innerHTML += '<div>';
+            for(var j=0;j<10;j++){
+              if(cnt == main){
+                doc.innerHTML += '<div class="sub-doc correct" onclick="congo()">' + cnt +'</div>';
+              } else {
+                doc.innerHTML += '<div class="sub-doc" onclick="getInfo(this)">' + cnt +'</div>';  
+              }
+              cnt++;
+            }
+            doc.innerHTML += '</div><br>'
+         }
+      }
+      function congo(){
+        var elements = document.getElementsByClassName("sub-doc");
+        for(var i=0;i<elements.length;i++){
+          if(elements[i].style.background == "red") continue;
+          elements[i].style.background = "white";
+        }
+        document.getElementsByClassName("correct")[0].style.background = "green";
+        document.getElementsByClassName("correct")[0].style.borderRadius = "50%";
+        document.getElementsByClassName("correct")[0].style.height = "50px";
+        document.getElementsByClassName("correct")[0].style.width = "50px";
+        document.getElementsByClassName("correct")[0].style.fontSize = "27px";
+        document.getElementById("results").style.color = "green";
+        document.getElementById("results").innerText = "Excellent!";
+      }
+
+      function getInfo(ele){
+        ele.style.background = "red";
+        ele.style.borderRadius = "50%";
+        var x = ele.innerText;
+        if(parseInt(x) < main){
+          if(main - parseInt(x) <= 15) {
+            document.getElementById("results").innerText = "You guessed a little smaller number!";
+          } else {
+            document.getElementById("results").innerText = "You guessed a very smaller number!";
+          }
+        } else {
+          if(parseInt(x) - main <= 15) {
+            document.getElementById("results").innerText = "You guessed a little larger number!";
+          } else {
+            document.getElementById("results").innerText = "You guessed a very larger number!";
+          }
+        }
+        
+      }
+
+   </script>
+</html>
